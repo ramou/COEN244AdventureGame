@@ -1,0 +1,4 @@
+item/sword.txt
+item/torch.txt
+item/potion.txt
+item/potion2.txt

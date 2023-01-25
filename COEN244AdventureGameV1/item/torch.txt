@@ -1,0 +1,25 @@
+Torch
+This heat-free LED torch gives an authentic flicker with a carbon-neutral footprint
+           /|
+        /\/ |/\
+        \  ^   | /\  /\
+  (\/\  / ^   /\/  )/^ )
+   \  \/^ /\       ^  /
+    )^       ^ \     (
+   (   ^   ^      ^\  )
+    \___\/____/______/
+    [________________]
+     |              |
+     |     //\\     |
+     |    <<()>>    |
+     |     \\//     |
+      \____________/
+          |    |
+          |    |
+          |    |
+          |    |
+          |    |
+          |    |
+          |    |
+#
+#--https://ascii.co.uk/art/torches (2023-01-25)
