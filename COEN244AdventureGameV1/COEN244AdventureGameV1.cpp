@@ -4,19 +4,27 @@
 #include <iostream>
 #include <fstream>
 #include "Level.h"
+#include "Item.h"
+#include "Game.h"
 
 using namespace std;
 
-int main() {
+int main(int argc, char** argv) {
 
     ifstream mapFile;
     
     mapFile.open("level1.txt");
     
-    
     Level l1(mapFile);
 
     l1.draw();
+    /*
+    Item sword = { "item/sword.txt" };
+    cout << sword.getArt() << endl << sword.getName() << endl 
+         << sword.getDescription();
+         */
+
+    Game g;
 
 }
 
