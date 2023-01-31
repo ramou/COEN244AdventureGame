@@ -1,8 +1,7 @@
+#include "pch.h"
 #include "Level.h"
 #include <string>
 #include <iostream>
-
-using namespace std;
 
 /*
 
@@ -12,7 +11,8 @@ allocate a simple character array. We then read through again, filling in
 the dynamically allocated character array.
 
 */
-Level::Level(ifstream& levelFile) {
+Level::Level(std::ifstream& levelFile) {
+	using namespace std;
 	string line;
 	int lines = 0;
 
@@ -66,6 +66,7 @@ We draw the board as text.
 */
 void Level::draw()
 {
+	using namespace std;
 	for (int y = 0; y < lineCount; y++) {
 		for (int x = 0; x < maxLine; x++) {
 			cout << map[y*maxLine + x];

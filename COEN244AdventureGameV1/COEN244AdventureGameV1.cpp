@@ -1,15 +1,13 @@
 // COEN244AdventureGameV1.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
 #include <iostream>
 #include <fstream>
 #include "Level.h"
 #include "Item.h"
 #include "Game.h"
 
-using namespace std;
-
 int main(int argc, char** argv) {
+    using namespace std;
 
     ifstream mapFile;
     
