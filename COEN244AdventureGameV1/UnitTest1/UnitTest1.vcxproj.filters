@@ -21,13 +21,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Level.cpp">
+    <ClCompile Include="..\*.cpp" Exclude="..\pch.cpp;..\COEN244AdventureGameV1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

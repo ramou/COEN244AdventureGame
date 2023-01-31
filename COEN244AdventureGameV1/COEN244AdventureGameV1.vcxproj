@@ -134,12 +134,14 @@
   <ItemGroup>
     <ClCompile Include="COEN244AdventureGameV1.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="InventoryView.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="InventoryView.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="pch.h" />

@@ -161,9 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Game.cpp" />
-    <ClCompile Include="..\Item.cpp" />
-    <ClCompile Include="..\Level.cpp" />
+    <ClCompile Include="..\*.cpp" Exclude="..\pch.cpp;..\COEN244AdventureGameV1.cpp"/>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
