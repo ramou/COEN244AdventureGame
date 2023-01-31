@@ -9,7 +9,7 @@ class Game
 public:
 	Game() {
 		using namespace std;
-		ifstream itemConfig("items.txt");
+		ifstream itemConfig(Game::CONFIG_FILE);
 		string buffer;
 		//count how many items we'll have
 		++itemCount;
@@ -70,6 +70,7 @@ public:
 
 
 private:
+	inline static const std::string CONFIG_FILE = "items.txt";
 	std::vector<Level> levels;
 
 
