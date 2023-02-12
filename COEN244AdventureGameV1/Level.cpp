@@ -2,6 +2,10 @@
 #include "Level.h"
 #include <string>
 #include <iostream>
+#include "EmptySpace.h"
+#include "Wall.h"
+#include "Stairs.h"
+
 
 /*
 
@@ -36,7 +40,7 @@ Level::Level(std::ifstream& levelFile) {
 
 	cout << maxLine << " " << lines << " " << (maxLine*lines) << endl;
 
-	map = new char[maxLine * lines];
+	map = new Space*[maxLine * lines];
 	lines = 0;
 
 	//We loop through all the lines
@@ -46,11 +50,26 @@ Level::Level(std::ifstream& levelFile) {
 	while (getline(levelFile, line)) {
 		int i;
 		for (i = 0; i < line.size(); i++) {
-			map[maxLine * lines + i] = line[i];
+			switch (line[i]) {
+			case '#' :
+				map[maxLine * lines + i] = new Wall();
+				break;
+			case '@' :
+				map[maxLine * lines + i] = new Space();
+				map[maxLine * lines + i]->move(p);
+				break;
+			case '.':
+				map[maxLine * lines + i] = new Space();
+				break;
+			default:
+				map[maxLine * lines + i] = new Other(line[i]);
+				break;
+			}
+			
 		}
 		//If the map line was short, print spaces
 		for (; i < maxLine; i++) {
-			map[maxLine * lines + i] = ' ';
+			map[maxLine * lines + i] = new EmptySpace();
 		}
 		lines++;
 	}
@@ -69,7 +88,7 @@ void Level::draw()
 	using namespace std;
 	for (int y = 0; y < lineCount; y++) {
 		for (int x = 0; x < maxLine; x++) {
-			cout << map[y*maxLine + x];
+			map[y*maxLine + x]->draw();
 		}
 		cout << endl;
 	}

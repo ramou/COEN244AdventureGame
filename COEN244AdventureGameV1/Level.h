@@ -1,5 +1,6 @@
 #pragma once
 #include <fstream>
+#include "Space.h"
 class Level
 {
 public:
@@ -8,8 +9,9 @@ public:
 
 
 private:
-	char* map;
+	Space** map;
 	int maxLine = 0;
 	int lineCount;
+	Player p;
 };
 
