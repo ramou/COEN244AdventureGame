@@ -133,9 +133,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="COEN244AdventureGameV1.cpp" />
-    <ClCompile Include="EmptySpace.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InventoryView.cpp" />
+    <ClCompile Include="ISpace.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="pch.cpp" />
@@ -145,9 +145,9 @@
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EmptySpace.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="InventoryView.h" />
+    <ClInclude Include="ISpace.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="pch.h" />

@@ -1,17 +1,20 @@
 #pragma once
 #include <fstream>
-#include "Space.h"
+#include "ISpace.h"
+#include "Player.h"
 class Level
 {
 public:
 	Level(std::ifstream &levelFile);
 	void draw();
+	void play();
 
 
 private:
-	Space** map;
+	ISpace** map;
 	int maxLine = 0;
 	int lineCount;
 	Player p;
+	ISpace *currentSpace;
 };
 

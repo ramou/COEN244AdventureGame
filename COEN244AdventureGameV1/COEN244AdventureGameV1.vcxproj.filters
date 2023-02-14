@@ -42,10 +42,10 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EmptySpace.cpp">
+    <ClCompile Include="Stairs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Stairs.cpp">
+    <ClCompile Include="ISpace.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,10 +74,10 @@
     <ClInclude Include="Space.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EmptySpace.h">
+    <ClInclude Include="Stairs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Stairs.h">
+    <ClInclude Include="ISpace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

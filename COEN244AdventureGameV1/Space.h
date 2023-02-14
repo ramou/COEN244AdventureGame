@@ -1,20 +1,61 @@
 #pragma once
 #include <iostream>
 #include "Player.h"
-class Space
+#include "ISpace.h"
+
+class Space : public ISpace
 {
 public:
-	virtual void move(Player& current) {
-		p = &current;
+	Space(ISpace& defaultSpace) : north(&defaultSpace), 
+		south(&defaultSpace),
+		east(&defaultSpace),
+		west(&defaultSpace) {}
+
+	void setPlayer(Player* p) {
+		currentPlayer = p;
 	}
+
+	virtual ISpace& move(ISpace& origin) {
+		return *this;
+	}
+
+	virtual ISpace& makeMove(char m) {
+		switch (m) {
+		case 'n':
+			return north->move(*this);
+			
+		case 's':
+			return south->move(*this);
+			
+		case 'w':
+			return west->move(*this);
+			
+		case 'e':
+			return east->move(*this);
+
+		}
+		return east->move(*this);
+
+	}
+
+
 	virtual void draw() {
-		if (p == nullptr)
+		if (currentPlayer == nullptr)
 			std::cout << ".";
 		else std::cout << "@";
 	};
 
+	void setNorth(ISpace& s) { north = &s; }
+	void setSouth(ISpace& s) { south = &s; }
+	void setEast(ISpace& s) { east = &s; }
+	void setWest(ISpace& s) { west = &s; }
+
 private:
-	Player* p;
+	Player* currentPlayer = nullptr;
+	ISpace* north;
+	ISpace* south;
+	ISpace* east;
+	ISpace* west;
 
 };
 
@@ -29,7 +70,7 @@ class Other :
 	public Space
 {
 public:
-	Other(char c) : c(c) {
+	Other(Space def, char c) : Space(def), c(c) {
 		std::cout << "Found an unexpected character " << c << std::endl;
 	}
 private:

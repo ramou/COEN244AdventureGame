@@ -1,11 +1,27 @@
 #pragma once
-#include "Space.h"
+#include "ISpace.h"
+#include <iostream>
 class Wall :
-    public Space
+    public ISpace
 {
     void draw() {
         std::cout << "#";
     }
 
+    virtual ISpace& move(ISpace& origin) {
+        return origin;
+    }
+
+    virtual ISpace& makeMove(char m) {
+        return *this;
+    }
+
 };
 
+class EmptySpace :
+    public Wall
+{
+    void draw() {
+        std::cout << " ";
+    }
+};

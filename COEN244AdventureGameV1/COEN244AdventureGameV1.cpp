@@ -15,6 +15,8 @@ int main(int argc, char** argv) {
     
     Level l1(mapFile);
 
+    l1.play();
+
     l1.draw();
     /*
     Item sword = { "item/sword.txt" };

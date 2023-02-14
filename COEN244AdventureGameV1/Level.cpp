@@ -2,10 +2,10 @@
 #include "Level.h"
 #include <string>
 #include <iostream>
-#include "EmptySpace.h"
 #include "Wall.h"
+#include "Space.h"
 #include "Stairs.h"
-
+#include <stdlib.h>
 
 /*
 
@@ -40,29 +40,31 @@ Level::Level(std::ifstream& levelFile) {
 
 	cout << maxLine << " " << lines << " " << (maxLine*lines) << endl;
 
-	map = new Space*[maxLine * lines];
+	map = new ISpace*[maxLine * lines];
 	lines = 0;
 
 	//We loop through all the lines
 	//We print the lines to the beginning of 
 	//the corresponding line in the dynamic array
 	//that represents the level
+	Wall *aWall = new Wall();
 	while (getline(levelFile, line)) {
 		int i;
 		for (i = 0; i < line.size(); i++) {
 			switch (line[i]) {
 			case '#' :
-				map[maxLine * lines + i] = new Wall();
+				map[maxLine * lines + i] = aWall;
 				break;
 			case '@' :
-				map[maxLine * lines + i] = new Space();
-				map[maxLine * lines + i]->move(p);
+				map[maxLine * lines + i] = new Space(*aWall);
+				((Space *)map[maxLine * lines + i])->setPlayer(&p);
+				currentSpace = map[maxLine * lines + i];
 				break;
 			case '.':
-				map[maxLine * lines + i] = new Space();
+				map[maxLine * lines + i] = new Space(*aWall);
 				break;
 			default:
-				map[maxLine * lines + i] = new Other(line[i]);
+				map[maxLine * lines + i] = new Other(*aWall, line[i]);
 				break;
 			}
 			
@@ -75,6 +77,21 @@ Level::Level(std::ifstream& levelFile) {
 	}
 	lineCount = lines;
 
+	for (int y = 0; y < lineCount; y++) {
+		for (int x = 0; x < maxLine; x++) {
+			if (y > 0) 
+				map[y * maxLine + x]->setNorth(*map[(y - 1) * maxLine + x]);
+			if (y < (lineCount-1))
+				map[y * maxLine + x]->setSouth(*map[(y + 1) * maxLine + x]);
+			if (x > 0)
+				map[y * maxLine + x]->setWest(*map[y * maxLine + x-1]);
+			if (x < (maxLine-1))
+				map[y * maxLine + x]->setEast(*map[y * maxLine + x + 1]);
+		}
+
+		
+	}
+
 }
 
 
@@ -85,12 +102,46 @@ We draw the board as text.
 */
 void Level::draw()
 {
+	system("CLS");
 	using namespace std;
 	for (int y = 0; y < lineCount; y++) {
 		for (int x = 0; x < maxLine; x++) {
 			map[y*maxLine + x]->draw();
 		}
 		cout << endl;
+	}
+
+}
+
+void Level::play()
+{
+	draw();
+	while (true) {
+		char move;
+		std::cin >> move;
+		ISpace* newSpace = nullptr;
+		switch (move) {
+		case 'w':
+			newSpace = &currentSpace->makeMove('n');
+			break;
+		case 'a':
+			newSpace = &currentSpace->makeMove('w');
+			break;
+		case 's':
+			newSpace = &currentSpace->makeMove('s');
+			break;
+		case 'd':
+			newSpace = &currentSpace->makeMove('e');
+			break;
+		default:
+			continue;
+		}
+		
+		((Space*)currentSpace)->setPlayer(nullptr);
+		currentSpace = newSpace;
+		((Space*)currentSpace)->setPlayer(&p);
+
+		draw();
 	}
 
 }
