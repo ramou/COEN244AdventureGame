@@ -10,3 +10,8 @@
 `Wall` represents the actual walls in the dungeon. The should look clearly like walls, definitely not like floors.
 
 `VoidSpace` represents the spaces that aren't really in the map. We include them to simplify the navigation.
+
+`OtherSpace` represents an error while reading the map file. If we didn't recognize the character, we output a message once, and then treat it like a `Floor`
+
+<img src="https://raw.githubusercontent.com/ramou/COEN244AdventureGame/main/COEN244AdventureGameV1/Space.png" />
+
