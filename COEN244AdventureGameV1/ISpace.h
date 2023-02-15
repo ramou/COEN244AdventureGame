@@ -19,6 +19,7 @@ public:
 class Wall :
     public ISpace
 {
+public:
     void draw() {
         std::cout << "#";
     }
@@ -31,8 +32,11 @@ class Wall :
         return *this;
     }
 
-};
+	static Wall * WALL;
 
+private:
+	static Wall w;
+};
 
 class VoidSpace :
     public Wall
@@ -45,10 +49,7 @@ class VoidSpace :
 class Floor : public ISpace
 {
 public:
-	Floor(ISpace& defaultSpace) : north(&defaultSpace),
-		south(&defaultSpace),
-		east(&defaultSpace),
-		west(&defaultSpace) {}
+	Floor() {}
 
 	virtual ISpace& move(ISpace& origin) {
 		return *this;
@@ -58,7 +59,7 @@ public:
 
 
 	virtual void draw() {
-		std::cout << "@";
+		std::cout << ".";
 	};
 
 	void setNorth(ISpace& s) { north = &s; }
@@ -67,10 +68,10 @@ public:
 	void setWest(ISpace& s) { west = &s; }
 
 private:
-	ISpace* north;
-	ISpace* south;
-	ISpace* east;
-	ISpace* west;
+	ISpace* north = Wall::WALL;
+	ISpace* south = Wall::WALL;
+	ISpace* east = Wall::WALL;
+	ISpace* west = Wall::WALL;
 
 };
 
@@ -85,7 +86,7 @@ class Other :
 	public Floor
 {
 public:
-	Other(Floor def, char c) : Floor(def), c(c) {
+	Other(char c) : c(c) {
 		std::cout << "Found an unexpected character " << c << std::endl;
 	}
 private:
