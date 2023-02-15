@@ -2,9 +2,7 @@
 #include "Level.h"
 #include <string>
 #include <iostream>
-#include "Wall.h"
-#include "Space.h"
-#include "Stairs.h"
+#include "ISpace.h"
 #include <stdlib.h>
 
 /*
@@ -56,12 +54,11 @@ Level::Level(std::ifstream& levelFile) {
 				map[maxLine * lines + i] = aWall;
 				break;
 			case '@' :
-				map[maxLine * lines + i] = new Space(*aWall);
-				((Space *)map[maxLine * lines + i])->setPlayer(&p);
+				map[maxLine * lines + i] = new Floor(*aWall);
 				currentSpace = map[maxLine * lines + i];
 				break;
 			case '.':
-				map[maxLine * lines + i] = new Space(*aWall);
+				map[maxLine * lines + i] = new Floor(*aWall);
 				break;
 			default:
 				map[maxLine * lines + i] = new Other(*aWall, line[i]);
@@ -71,7 +68,7 @@ Level::Level(std::ifstream& levelFile) {
 		}
 		//If the map line was short, print spaces
 		for (; i < maxLine; i++) {
-			map[maxLine * lines + i] = new EmptySpace();
+			map[maxLine * lines + i] = new VoidSpace();
 		}
 		lines++;
 	}
@@ -106,7 +103,8 @@ void Level::draw()
 	using namespace std;
 	for (int y = 0; y < lineCount; y++) {
 		for (int x = 0; x < maxLine; x++) {
-			map[y*maxLine + x]->draw();
+			if (map[y * maxLine + x] == currentSpace) cout << '@';
+			else map[y * maxLine + x]->draw();
 		}
 		cout << endl;
 	}
@@ -136,10 +134,8 @@ void Level::play()
 		default:
 			continue;
 		}
-		
-		((Space*)currentSpace)->setPlayer(nullptr);
-		currentSpace = newSpace;
-		((Space*)currentSpace)->setPlayer(&p);
+
+		currentSpace = newSpace;		
 
 		draw();
 	}

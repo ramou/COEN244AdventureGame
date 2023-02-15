@@ -33,19 +33,13 @@
     <ClCompile Include="InventoryView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Space.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Wall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Stairs.cpp">
+    <ClCompile Include="ISpace.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ISpace.cpp">
+    <ClCompile Include="Floor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,16 +59,7 @@
     <ClInclude Include="InventoryView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Wall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Space.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Stairs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ISpace.h">

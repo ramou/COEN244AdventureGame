@@ -1,5 +1,6 @@
 #include "ISpace.h"
-ISpace& Space::makeMove(char m) {
+
+ISpace& Floor::makeMove(char m) {
 	switch (m) {
 	case 'n':
 		return north->move(*this);

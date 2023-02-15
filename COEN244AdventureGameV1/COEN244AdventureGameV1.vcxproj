@@ -140,9 +140,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Space.cpp" />
-    <ClCompile Include="Stairs.cpp" />
-    <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="Floor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -152,9 +150,6 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Space.h" />
-    <ClInclude Include="Stairs.h" />
-    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="items.txt" />
