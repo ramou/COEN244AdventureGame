@@ -37,9 +37,9 @@
   *  `makeMove(m)`: a concrete implementation of the `makeMove(m)` function that takes a char representing the move to be made (e.g., 'n' for north). The function returns a reference to an `ISpace` object representing the neighboring space in the specified direction based on the input move, or a reference to the current Floor object `*this` if the input move is not recognized.
   *  `north`, `south`, `east`, `west`: pointers to `ISpace` objects representing the neighboring spaces. They are initialized to point to the `Wall::WALL` object to avoid null pointer issues.
 
-* `Other`: This is a subclass of Floor that represents a walkable space with an unexpected character in the dungeon. It has the following properties:
-  *  `c`: the unexpected character that was encountered.
-  *  `draw()`: a concrete implementation of the `draw()` function that prints a '.' character.
-
 * `Stairs`: This is a subclass of Floor that represents a walkable space with a staircase in the dungeon. It has the following properties:
   *  `draw()`: a concrete implementation of the `draw()` function that prints a '<' character.
+
+* `OtherSpace`: This is a subclass of Floor that represents a walkable space with an unexpected character in the dungeon. It has the following properties:
+  *  `c`: the unexpected character that was encountered.
+  *  `draw()`: a concrete implementation of the `draw()` function that prints a '.' character.
