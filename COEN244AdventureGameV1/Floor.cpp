@@ -15,6 +15,5 @@ ISpace& Floor::makeMove(char m) {
 		return east->move(*this);
 
 	}
-	return east->move(*this);
-
+	return *this;
 }

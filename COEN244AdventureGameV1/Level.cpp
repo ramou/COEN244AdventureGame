@@ -60,7 +60,7 @@ Level::Level(std::ifstream& levelFile) {
 				map[mapWidth * lines + i] = new Floor();
 				break;
 			default:
-				map[mapWidth * lines + i] = new Other(line[i]);
+				map[mapWidth * lines + i] = new OtherSpace(line[i]);
 				break;
 			}
 			

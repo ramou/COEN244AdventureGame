@@ -82,11 +82,11 @@ private:
 //we grabbed. Instead of dying horribly, when
 //we start up, how about this to notify the user
 //and keep goind?
-class Other :
+class OtherSpace :
 	public Floor
 {
 public:
-	Other(char c) : c(c) {
+	OtherSpace(char c) : c(c) {
 		std::cout << "Found an unexpected character " << c << std::endl;
 	}
 private:
