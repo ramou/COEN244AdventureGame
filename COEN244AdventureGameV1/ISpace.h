@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 
+#include "WalkedIntoWallException.h"
+
 class ISpace
 {
 public:
@@ -24,7 +26,8 @@ class Wall :
     }
 
     virtual ISpace& move(ISpace& origin) {
-        return origin;
+		WalkedIntoWallException e;
+		throw e;
     }
 
     virtual ISpace& makeMove(char m) {
@@ -58,7 +61,7 @@ public:
 
 
 	virtual void draw() {
-		std::cout << "@";
+		std::cout << ".";
 	};
 
 	void setNorth(ISpace& s) { north = &s; }

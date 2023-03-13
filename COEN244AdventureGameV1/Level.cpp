@@ -4,6 +4,7 @@
 #include <iostream>
 #include "ISpace.h"
 #include <stdlib.h>
+#include "WalkedIntoWallException.h"
 
 /*
 
@@ -109,34 +110,43 @@ void Level::draw()
 		cout << endl;
 	}
 
+	for (auto& m : messages) {
+		cout << m << endl;
+	}
+	messages.clear();
+
 }
 
 void Level::play()
 {
 	draw();
 	while (true) {
-		char move;
-		std::cin >> move;
-		ISpace* newSpace = nullptr;
-		switch (move) {
-		case 'w':
-			newSpace = &currentSpace->makeMove('n');
-			break;
-		case 'a':
-			newSpace = &currentSpace->makeMove('w');
-			break;
-		case 's':
-			newSpace = &currentSpace->makeMove('s');
-			break;
-		case 'd':
-			newSpace = &currentSpace->makeMove('e');
-			break;
-		default:
-			continue;
+		try {
+			char move;
+			std::cin >> move;
+			ISpace* newSpace = nullptr;
+			switch (move) {
+			case 'w':
+				newSpace = &currentSpace->makeMove('n');
+				break;
+			case 'a':
+				newSpace = &currentSpace->makeMove('w');
+				break;
+			case 's':
+				newSpace = &currentSpace->makeMove('s');
+				break;
+			case 'd':
+				newSpace = &currentSpace->makeMove('e');
+				break;
+			default:
+				continue;
+			}
+
+			currentSpace = newSpace;
 		}
-
-		currentSpace = newSpace;		
-
+		catch (WalkedIntoWallException e) {
+			messages.push_back(e.toStr());
+		}
 		draw();
 	}
 

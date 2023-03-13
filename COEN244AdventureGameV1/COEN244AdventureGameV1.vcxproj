@@ -141,6 +141,7 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="WalkedIntoWallException.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="WalkedIntoWallException.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="items.txt" />
