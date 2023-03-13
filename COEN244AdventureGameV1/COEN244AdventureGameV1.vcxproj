@@ -135,7 +135,6 @@
     <ClCompile Include="COEN244AdventureGameV1.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InventoryView.cpp" />
-    <ClCompile Include="ISpace.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="pch.cpp" />

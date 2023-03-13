@@ -21,6 +21,7 @@ public:
 class Wall :
     public ISpace
 {
+public:
     void draw() {
         std::cout << "#";
     }
@@ -34,8 +35,11 @@ class Wall :
         return *this;
     }
 
-};
+	static Wall * WALL;
 
+private:
+	static Wall w;
+};
 
 class VoidSpace :
     public Wall
@@ -48,10 +52,7 @@ class VoidSpace :
 class Floor : public ISpace
 {
 public:
-	Floor(ISpace& defaultSpace) : north(&defaultSpace),
-		south(&defaultSpace),
-		east(&defaultSpace),
-		west(&defaultSpace) {}
+	Floor() {}
 
 	virtual ISpace& move(ISpace& origin) {
 		return *this;
@@ -70,10 +71,10 @@ public:
 	void setWest(ISpace& s) { west = &s; }
 
 private:
-	ISpace* north;
-	ISpace* south;
-	ISpace* east;
-	ISpace* west;
+	ISpace* north = Wall::WALL;
+	ISpace* south = Wall::WALL;
+	ISpace* east = Wall::WALL;
+	ISpace* west = Wall::WALL;
 
 };
 
@@ -84,11 +85,11 @@ private:
 //we grabbed. Instead of dying horribly, when
 //we start up, how about this to notify the user
 //and keep goind?
-class Other :
+class OtherSpace :
 	public Floor
 {
 public:
-	Other(Floor def, char c) : Floor(def), c(c) {
+	OtherSpace(char c) : c(c) {
 		std::cout << "Found an unexpected character " << c << std::endl;
 	}
 private:

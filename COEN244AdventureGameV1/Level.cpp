@@ -23,7 +23,7 @@ Level::Level(std::ifstream& levelFile) {
 	//looking for the longest line
 	while (getline(levelFile, line)) {
 		lines++;
-		if (line.size() > maxLine) maxLine = line.size();
+		if (line.size() > mapWidth) mapWidth = (int)line.size();
 	}
 
 
@@ -37,54 +37,53 @@ Level::Level(std::ifstream& levelFile) {
 	levelFile.seekg(0, ios::beg);
 
 
-	cout << maxLine << " " << lines << " " << (maxLine*lines) << endl;
+	cout << mapWidth << " " << lines << " " << (mapWidth*lines) << endl;
 
-	map = new ISpace*[maxLine * lines];
+	map = new ISpace*[mapWidth * lines];
 	lines = 0;
 
 	//We loop through all the lines
 	//We print the lines to the beginning of 
 	//the corresponding line in the dynamic array
 	//that represents the level
-	Wall *aWall = new Wall();
 	while (getline(levelFile, line)) {
 		int i;
 		for (i = 0; i < line.size(); i++) {
 			switch (line[i]) {
 			case '#' :
-				map[maxLine * lines + i] = aWall;
+				map[mapWidth * lines + i] = Wall::WALL;
 				break;
 			case '@' :
-				map[maxLine * lines + i] = new Floor(*aWall);
-				currentSpace = map[maxLine * lines + i];
+				map[mapWidth * lines + i] = new Floor();
+				currentSpace = map[mapWidth * lines + i];
 				break;
 			case '.':
-				map[maxLine * lines + i] = new Floor(*aWall);
+				map[mapWidth * lines + i] = new Floor();
 				break;
 			default:
-				map[maxLine * lines + i] = new Other(*aWall, line[i]);
+				map[mapWidth * lines + i] = new OtherSpace(line[i]);
 				break;
 			}
 			
 		}
 		//If the map line was short, print spaces
-		for (; i < maxLine; i++) {
-			map[maxLine * lines + i] = new VoidSpace();
+		for (; i < mapWidth; i++) {
+			map[mapWidth * lines + i] = new VoidSpace();
 		}
 		lines++;
 	}
-	lineCount = lines;
+	mapHeight = lines;
 
-	for (int y = 0; y < lineCount; y++) {
-		for (int x = 0; x < maxLine; x++) {
+	for (int y = 0; y < mapHeight; y++) {
+		for (int x = 0; x < mapWidth; x++) {
 			if (y > 0) 
-				map[y * maxLine + x]->setNorth(*map[(y - 1) * maxLine + x]);
-			if (y < (lineCount-1))
-				map[y * maxLine + x]->setSouth(*map[(y + 1) * maxLine + x]);
+				map[y * mapWidth + x]->setNorth(*map[(y - 1) * mapWidth + x]);
+			if (y < (mapHeight-1))
+				map[y * mapWidth + x]->setSouth(*map[(y + 1) * mapWidth + x]);
 			if (x > 0)
-				map[y * maxLine + x]->setWest(*map[y * maxLine + x-1]);
-			if (x < (maxLine-1))
-				map[y * maxLine + x]->setEast(*map[y * maxLine + x + 1]);
+				map[y * mapWidth + x]->setWest(*map[y * mapWidth + x-1]);
+			if (x < (mapWidth-1))
+				map[y * mapWidth + x]->setEast(*map[y * mapWidth + x + 1]);
 		}
 
 		
@@ -102,10 +101,10 @@ void Level::draw()
 {
 	system("CLS");
 	using namespace std;
-	for (int y = 0; y < lineCount; y++) {
-		for (int x = 0; x < maxLine; x++) {
-			if (map[y * maxLine + x] == currentSpace) cout << '@';
-			else map[y * maxLine + x]->draw();
+	for (int y = 0; y < mapHeight; y++) {
+		for (int x = 0; x < mapWidth; x++) {
+			if (map[y * mapWidth + x] == currentSpace) cout << '@';
+			else map[y * mapWidth + x]->draw();
 		}
 		cout << endl;
 	}

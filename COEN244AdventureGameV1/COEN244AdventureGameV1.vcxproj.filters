@@ -36,10 +36,10 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ISpace.cpp">
+    <ClCompile Include="Floor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Floor.cpp">
+    <ClCompile Include="Wall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WalkedIntoWallException.cpp">

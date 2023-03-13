@@ -14,8 +14,8 @@ public:
 private:
 	std::vector<std::string> messages;
 	ISpace** map;
-	int maxLine = 0;
-	int lineCount;
+	int mapWidth = 0;
+	int mapHeight;
 	Player p;
 	ISpace *currentSpace;
 };
