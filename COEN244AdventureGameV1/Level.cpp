@@ -1,10 +1,13 @@
+//Ignore pch.h, it's has to do with the testing framework
 #include "pch.h"
-#include "Level.h"
+
 #include <string>
-#include <iostream>
-#include "ISpace.h"
 #include <stdlib.h>
-#include "WalkedIntoWallException.h"
+#include <iostream>
+
+#include "Level.h"
+#include "ISpace.h"
+#include "AdventureException.h"
 
 /*
 
@@ -60,6 +63,9 @@ Level::Level(std::ifstream& levelFile) {
 			case '.':
 				map[mapWidth * lines + i] = new Floor();
 				break;
+			case '<':
+				map[mapWidth * lines + i] = new Stairs();
+				break;
 			default:
 				map[mapWidth * lines + i] = new OtherSpace(line[i]);
 				break;
@@ -97,8 +103,8 @@ Level::Level(std::ifstream& levelFile) {
 We draw the board as text.
 
 */
-void Level::draw()
-{
+void Level::draw() {
+
 	system("CLS");
 	using namespace std;
 	for (int y = 0; y < mapHeight; y++) {
@@ -123,29 +129,33 @@ void Level::play()
 		try {
 			char move;
 			std::cin >> move;
-			ISpace* newSpace = nullptr;
+
 			switch (move) {
 			case 'w':
-				newSpace = &currentSpace->makeMove('n');
+				currentSpace = &currentSpace->makeMove('n');
 				break;
 			case 'a':
-				newSpace = &currentSpace->makeMove('w');
+				currentSpace = &currentSpace->makeMove('w');
 				break;
 			case 's':
-				newSpace = &currentSpace->makeMove('s');
+				currentSpace = &currentSpace->makeMove('s');
 				break;
 			case 'd':
-				newSpace = &currentSpace->makeMove('e');
+				currentSpace = &currentSpace->makeMove('e');
 				break;
 			default:
-				continue;
+				throw InvalidInputException(move);
 			}
 
-			currentSpace = newSpace;
-		}
-		catch (WalkedIntoWallException e) {
+		
+		}/* We don't need this because the InvalidActionException
+		    Catches both!
+		 catch (WalkedIntoWallException& e) {
 			messages.push_back(e.toStr());
-		}
+		}*/  catch (InvalidActionException& e) {
+			messages.push_back(e.toStr());
+		} 
+
 		draw();
 	}
 

@@ -5,26 +5,35 @@
 #include "Level.h"
 #include "Item.h"
 #include "Game.h"
+#include "AdventureException.h"
 
 int main(int argc, char** argv) {
     using namespace std;
 
     ifstream mapFile;
     
-    mapFile.open("level1.txt");
+    mapFile.open("level2.txt");
     
     Level l1(mapFile);
 
-    l1.play();
 
-    l1.draw();
+    try {
+        l1.play();
+
+    }
+    catch (EscapedDungeonException e) {
+        cout << e.toStr();
+    }
+
+
+    // l1.draw();
     /*
     Item sword = { "item/sword.txt" };
     cout << sword.getArt() << endl << sword.getName() << endl 
          << sword.getDescription();
          */
 
-    Game g;
+    //Game g;
 
 }
 

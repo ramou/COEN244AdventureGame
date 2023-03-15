@@ -1,12 +1,12 @@
 #pragma once
 #include <iostream>
 
-#include "WalkedIntoWallException.h"
+#include "AdventureException.h"
 
 class ISpace
 {
 public:
-	virtual ISpace& move(ISpace& origin) = 0;
+	virtual ISpace& move() = 0;
 	virtual ISpace& makeMove(char m) = 0;
 	virtual void draw() = 0;
 
@@ -26,7 +26,7 @@ public:
         std::cout << "#";
     }
 
-    virtual ISpace& move(ISpace& origin) {
+    virtual ISpace& move() {
 		WalkedIntoWallException e;
 		throw e;
     }
@@ -54,7 +54,7 @@ class Floor : public ISpace
 public:
 	Floor() {}
 
-	virtual ISpace& move(ISpace& origin) {
+	virtual ISpace& move() {
 		return *this;
 	}
 
@@ -102,4 +102,10 @@ class Stairs :
 	void draw() {
 		std::cout << "<";
 	}
+
+	virtual ISpace& move() {
+		EscapedDungeonException e;
+		throw e;
+	}
+
 };

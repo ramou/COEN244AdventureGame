@@ -4,19 +4,19 @@ ISpace& Floor::makeMove(char m) {
 	try {
 		switch (m) {
 		case 'n':
-			return north->move(*this);
+			return north->move();
 
 		case 's':
-			return south->move(*this);
+			return south->move();
 
 		case 'w':
-			return west->move(*this);
+			return west->move();
 
 		case 'e':
-			return east->move(*this);
+			return east->move();
 
 		}
-		return east->move(*this);
+		return east->move();
 	}
 	catch (WalkedIntoWallException e) {
 		/*An exception happened while trying
