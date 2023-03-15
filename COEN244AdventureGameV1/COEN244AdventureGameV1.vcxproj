@@ -140,12 +140,13 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="WalkedIntoWallException.cpp" />
+    <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="InventoryView.h" />
-    <ClInclude Include="ISpace.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="pch.h" />
