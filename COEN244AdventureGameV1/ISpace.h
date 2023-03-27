@@ -2,6 +2,8 @@
 #include <iostream>
 
 #include "AdventureException.h"
+#include "Container.h"
+#include "Item.h"
 
 class ISpace
 {
@@ -52,6 +54,7 @@ class VoidSpace :
 class Floor : public ISpace
 {
 public:
+	Container<Item> items;
 	Floor() {}
 
 	virtual ISpace& move() {
@@ -62,7 +65,11 @@ public:
 
 
 	virtual void draw() {
-		std::cout << ".";
+		if (!items.isEmpty()) {
+			std::cout << "*";
+		} else {
+			std::cout << ".";
+		}
 	};
 
 	void setNorth(ISpace& s) { north = &s; }
@@ -75,7 +82,7 @@ private:
 	ISpace* south = Wall::WALL;
 	ISpace* east = Wall::WALL;
 	ISpace* west = Wall::WALL;
-
+	
 };
 
 

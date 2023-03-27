@@ -1,4 +1,4 @@
-item/sword.txt
-item/torch.txt
-item/potion.txt
-item/potion2.txt
+a item/sword.txt
+b item/torch.txt
+c item/potion.txt
+d item/potion2.txt

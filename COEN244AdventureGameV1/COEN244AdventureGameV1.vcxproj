@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="COEN244AdventureGameV1.cpp" />
+    <ClCompile Include="Container.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InventoryView.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -143,8 +144,10 @@
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Container.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="InventoryView.h" />
+    <ClInclude Include="ISpace.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="pch.h" />
@@ -154,6 +157,7 @@
   <ItemGroup>
     <Text Include="items.txt" />
     <Text Include="level1.txt" />
+    <Text Include="level2.txt" />
     <Text Include="maps.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

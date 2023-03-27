@@ -22,6 +22,13 @@ Level::Level(std::ifstream& levelFile) {
 	string line;
 	int lines = 0;
 
+	//Let's get all possible items from items.txt
+	std::ifstream itemFile("items.txt");
+	while (getline(itemFile, line)) {
+		allItems.insert(std::pair<char, Item>(line.at(0), line.substr(2)));
+	}
+
+
 	//We loop through all the lines
 	//looking for the longest line
 	while (getline(levelFile, line)) {
@@ -67,11 +74,23 @@ Level::Level(std::ifstream& levelFile) {
 				map[mapWidth * lines + i] = new Stairs();
 				break;
 			default:
-				map[mapWidth * lines + i] = new OtherSpace(line[i]);
+				
+				//map::end.
+				std::map<char,Item>::iterator it;
+
+				it = allItems.find(line[i]);
+				if (it != allItems.end()) {
+					map[mapWidth * lines + i] = new Floor();
+					((Floor*)map[mapWidth * lines + i])->items.put(it->second);
+					cout << it->second.getName() << endl;
+				} else {
+					map[mapWidth * lines + i] = new OtherSpace(line[i]);
+				}
 				break;
 			}
 			
 		}
+
 		//If the map line was short, print spaces
 		for (; i < mapWidth; i++) {
 			map[mapWidth * lines + i] = new VoidSpace();
@@ -147,6 +166,19 @@ void Level::play()
 				throw InvalidInputException(move);
 			}
 
+			//Check if there are items and pick them up:
+			if (!((Floor*)currentSpace)->items.isEmpty() ) {
+				messages.push_back("We found these itmes:");
+				((Floor*)currentSpace)->items.display(messages);
+
+				//A good solution might be to use lambdas here
+				//Pass a lambda into a container do do something, 
+				//up to and inclduing removing stuff
+				//Iterate through each item. Give a message that we're
+				//picking it up, add it to the player inventory that is passed
+				//remove it from the current iterator.
+
+			}
 		
 		}/* We don't need this because the InvalidActionException
 		    Catches both!

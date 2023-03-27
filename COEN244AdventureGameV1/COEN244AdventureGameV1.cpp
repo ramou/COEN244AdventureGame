@@ -2,6 +2,8 @@
 //
 #include <iostream>
 #include <fstream>
+#include <filesystem>
+#include <sstream>
 #include "Level.h"
 #include "Item.h"
 #include "Game.h"
@@ -11,9 +13,19 @@ int main(int argc, char** argv) {
     using namespace std;
 
     ifstream mapFile;
+    string fileName = "level2.txt";
+    mapFile.open(fileName);
     
-    mapFile.open("level2.txt");
-    
+    if (!mapFile.is_open()) {
+        std::filesystem::path cwd = std::filesystem::current_path() / fileName;
+        cerr << "We cannot find file: " << cwd.string();
+        exit(1);
+    } 
+
+    cout.flush();
+
+
+
     Level l1(mapFile);
 
 

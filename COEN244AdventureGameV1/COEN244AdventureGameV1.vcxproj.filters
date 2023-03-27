@@ -42,7 +42,7 @@
     <ClCompile Include="Wall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WalkedIntoWallException.cpp">
+    <ClCompile Include="Container.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,11 +65,14 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ISpace.h">
+    <ClInclude Include="AdventureException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WalkedIntoWallException.h">
-      <Filter>Resource Files</Filter>
+    <ClInclude Include="Container.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ISpace.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +83,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="maps.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="level2.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

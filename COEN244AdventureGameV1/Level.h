@@ -2,6 +2,8 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <map>
+#include "Item.h"
 #include "ISpace.h"
 #include "Player.h"
 class Level
@@ -11,6 +13,7 @@ public:
 	void draw();
 	void play();
 
+
 private:
 	std::vector<std::string> messages;
 	ISpace** map;
@@ -18,5 +21,8 @@ private:
 	int mapHeight;
 	Player p;
 	ISpace *currentSpace;
+
+	std::map<char, Item> allItems;
+
 };
 
