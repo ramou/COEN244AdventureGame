@@ -4,6 +4,7 @@
 
 class Player
 {
+public:
 	void pickup(Item thing) {
 		inventory.put(thing);
 	}

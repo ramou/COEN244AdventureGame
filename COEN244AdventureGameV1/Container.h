@@ -5,6 +5,7 @@
 #include <map>
 
 
+
 template<class T>
 class Container {
 public:
@@ -19,11 +20,21 @@ public:
 	void put(T thing) {
 		stuff.insert(std::pair<std::string, T>(thing.getName(), thing));
 	}
-
+	/*
 	void display(std::vector<std::string> &messages) {
 		for (auto i : stuff){
 			messages.push_back(i.second.getName());
 		}
+		
+	}
+	*/
+
+	template<typename F>
+	void process(F && strategy) {
+		for(auto i : stuff) {
+			strategy(i.second);
+		}
+		stuff.clear();
 	}
 
 private:

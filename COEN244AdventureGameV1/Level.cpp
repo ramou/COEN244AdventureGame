@@ -2,6 +2,7 @@
 #include "pch.h"
 
 #include <string>
+#include <sstream>
 #include <stdlib.h>
 #include <iostream>
 
@@ -178,10 +179,22 @@ void Level::play()
 				throw InvalidInputException(move);
 			}
 
+
+			//We want a lambda to pick up the items.
+			auto pickupFunction = [this](Item i) {
+				this->p.pickup(i);
+				std::stringstream mess;
+				mess << "You have picked up: " << i.getName();
+				messages.push_back(mess.str());
+			};
+
 			//Check if there are items and pick them up:
 			if (!((Floor*)currentSpace)->items.isEmpty() ) {
+				((Floor*)currentSpace)->items.process(pickupFunction);
+				/*
 				messages.push_back("We found these itmes:");
 				((Floor*)currentSpace)->items.display(messages);
+				*/
 
 				//A good solution might be to use lambdas here
 				//Pass a lambda into a container do do something, 
