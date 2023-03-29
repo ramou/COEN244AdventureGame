@@ -11,10 +11,11 @@
 
 /*
 
-We take an inputfilestream to a text file that represents our level in
-ascii text. We build the level by determining the longest line so we can 
-allocate a simple character array. We then read through again, filling in
-the dynamically allocated character array.
+We take an inputfilestream to a text file that represents our level.
+The first two lines represent files of maps to items or obstacles, the rest
+is our map in ascii text. We build the level by determining the longest line 
+so we can allocate a simple character array. We then read through again, filling 
+in the dynamically allocated character array.
 
 */
 Level::Level(std::ifstream& levelFile) {
@@ -22,8 +23,15 @@ Level::Level(std::ifstream& levelFile) {
 	string line;
 	int lines = 0;
 
+	//First line of the level file is the items file location:
+	string itemFileName;
+	getline(levelFile, itemFileName);
+	//Second line of the level file is the obstacle file location:
+	string obstacleFileName;
+	getline(levelFile, obstacleFileName);
+
 	//Let's get all possible items from items.txt
-	std::ifstream itemFile("items.txt");
+	std::ifstream itemFile(itemFileName);
 	while (getline(itemFile, line)) {
 		allItems.insert(std::pair<char, Item>(line.at(0), line.substr(2)));
 	}
@@ -45,6 +53,10 @@ Level::Level(std::ifstream& levelFile) {
 	*/
 	levelFile.clear();
 	levelFile.seekg(0, ios::beg);
+
+	//Skip the first two lines as they don't actually hold map info
+	getline(levelFile, line);
+	getline(levelFile, line);
 
 
 	cout << mapWidth << " " << lines << " " << (mapWidth*lines) << endl;

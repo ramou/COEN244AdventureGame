@@ -1,3 +1,5 @@
+level2.items.txt
+level2.obstacles.txt
 ###########
 <.......###
 #....&..#
