@@ -10,16 +10,23 @@ template<class T>
 class Container {
 public:
 	T get(std::string name) {
-		return stuff.find(name);
+		return stuffInContainer.find(name);
 	}
 
 	bool isEmpty() {
-		return stuff.empty();
+		return stuffInContainer.empty();
 	}
 
 	void put(T thing) {
-		stuff.insert(std::pair<std::string, T>(thing.getName(), thing));
+		stuffInContainer.insert(std::pair<std::string, T>(thing.getName(), thing));
 	}
+
+	void put(std::vector<T> things) {
+		for (T thing : things) {
+			put(thing);
+		}
+	}
+
 	/*
 	void display(std::vector<std::string> &messages) {
 		for (auto i : stuff){
@@ -31,13 +38,13 @@ public:
 
 	template<typename F>
 	void process(F && strategy) {
-		for(auto i : stuff) {
+		for(auto i : stuffInContainer) {
 			strategy(i.second);
 		}
-		stuff.clear();
+		stuffInContainer.clear();
 	}
 
 private:
-	std::map<const std::string, T> stuff;
+	std::map<const std::string, T> stuffInContainer;
 };
 

@@ -25,12 +25,11 @@ int main(int argc, char** argv) {
     cout.flush();
 
 
-
-    Level l1(mapFile);
-
+    Game g("levels.txt");
+    
 
     try {
-        l1.play();
+        g.play();
 
     }
     catch (EscapedDungeonException e) {

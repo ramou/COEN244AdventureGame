@@ -11,18 +11,19 @@ class Level
 public:
 	Level(std::ifstream &levelFile);
 	void draw();
-	void play();
 
-
-private:
+	ISpace* currentSpace;
 	std::vector<std::string> messages;
+	Player p;
+private:
+	
 	ISpace** map;
 	int mapWidth = 0;
 	int mapHeight;
-	Player p;
-	ISpace *currentSpace;
+	
+	
 
-	std::map<char, Item> allItems;
+	std::map<char, std::vector<Item>> allItems;
 
 };
 

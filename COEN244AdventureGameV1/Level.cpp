@@ -34,7 +34,18 @@ Level::Level(std::ifstream& levelFile) {
 	//Let's get all possible items from items.txt
 	std::ifstream itemFile(itemFileName);
 	while (getline(itemFile, line)) {
-		allItems.insert(std::pair<char, Item>(line.at(0), line.substr(2)));
+		//Check if there's an entry in the map for that character
+		if (allItems.find(line.at(0)) != allItems.end()) {
+			//Already some items, just add to the pile
+			vector<Item> &stuff = allItems.find(line.at(0))->second;
+			stuff.push_back(line.substr(2));
+		} else {
+			//No items yet, make a new pile
+			vector<Item> stuff;
+			stuff.push_back(line.substr(2));
+			allItems.insert(std::pair<char, std::vector<Item>>(line.at(0), stuff));
+		}
+
 	}
 
 
@@ -89,13 +100,12 @@ Level::Level(std::ifstream& levelFile) {
 			default:
 				
 				//map::end.
-				std::map<char,Item>::iterator it;
+				std::map<char, std::vector<Item>>::iterator pileOfItems;
 
-				it = allItems.find(line[i]);
-				if (it != allItems.end()) {
+				pileOfItems = allItems.find(line[i]);
+				if (pileOfItems != allItems.end()) {
 					map[mapWidth * lines + i] = new Floor();
-					((Floor*)map[mapWidth * lines + i])->items.put(it->second);
-					cout << it->second.getName() << endl;
+					((Floor*)map[mapWidth * lines + i])->items.put(pileOfItems->second);
 				} else {
 					map[mapWidth * lines + i] = new OtherSpace(line[i]);
 				}
@@ -151,69 +161,5 @@ void Level::draw() {
 		cout << m << endl;
 	}
 	messages.clear();
-
-}
-
-void Level::play()
-{
-	draw();
-	while (true) {
-		try {
-			char move;
-			std::cin >> move;
-
-			switch (move) {
-			case 'w':
-				currentSpace = &currentSpace->makeMove('n');
-				break;
-			case 'a':
-				currentSpace = &currentSpace->makeMove('w');
-				break;
-			case 's':
-				currentSpace = &currentSpace->makeMove('s');
-				break;
-			case 'd':
-				currentSpace = &currentSpace->makeMove('e');
-				break;
-			default:
-				throw InvalidInputException(move);
-			}
-
-
-			//We want a lambda to pick up the items.
-			auto pickupFunction = [this](Item i) {
-				this->p.pickup(i);
-				std::stringstream mess;
-				mess << "You have picked up: " << i.getName();
-				messages.push_back(mess.str());
-			};
-
-			//Check if there are items and pick them up:
-			if (!((Floor*)currentSpace)->items.isEmpty() ) {
-				((Floor*)currentSpace)->items.process(pickupFunction);
-				/*
-				messages.push_back("We found these itmes:");
-				((Floor*)currentSpace)->items.display(messages);
-				*/
-
-				//A good solution might be to use lambdas here
-				//Pass a lambda into a container do do something, 
-				//up to and inclduing removing stuff
-				//Iterate through each item. Give a message that we're
-				//picking it up, add it to the player inventory that is passed
-				//remove it from the current iterator.
-
-			}
-		
-		}/* We don't need this because the InvalidActionException
-		    Catches both!
-		 catch (WalkedIntoWallException& e) {
-			messages.push_back(e.toStr());
-		}*/  catch (InvalidActionException& e) {
-			messages.push_back(e.toStr());
-		} 
-
-		draw();
-	}
 
 }
