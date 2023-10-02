@@ -1,4 +1,0 @@
-a item/sword.txt
-a item/torch.txt
-b item/potion.txt
-d item/potion2.txt

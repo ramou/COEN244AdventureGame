@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{07d8a620-27ec-4990-a835-9932d8b8e7d8}</ProjectGuid>
-    <RootNamespace>COEN244AdventureGameV1</RootNamespace>
+    <ProjectGuid>{04743e08-579d-4003-98e6-86c7b7d534c4}</ProjectGuid>
+    <RootNamespace>AdventureGameV2023</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -70,10 +70,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VCInstallDir)Auxiliary\VS\UnitTest\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VCInstallDir)Auxiliary\VS\UnitTest\lib;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -108,7 +104,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,35 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="COEN244AdventureGameV1.cpp" />
-    <ClCompile Include="Container.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="InventoryView.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="Level.cpp" />
-    <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Floor.cpp" />
-    <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="AdventureGameV2023.cpp" />
+    <ClCompile Include="Map.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Container.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="InventoryView.h" />
-    <ClInclude Include="ISpace.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="Level.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="AdventureException.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="level1.items.txt" />
-    <Text Include="level2.items.txt" />
     <Text Include="level1.txt" />
-    <Text Include="level2.txt" />
-    <Text Include="levels.txt" />
-    <Text Include="maps.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Map.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
