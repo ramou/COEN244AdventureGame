@@ -5,9 +5,12 @@
 #include <cstdlib>
 #include <sstream>
 
+#include "Room.h"
+#include "RoomFactory.h"
+
 class Map
 {
-public:ed3rf
+public:
 
 	Map(std::ifstream &file) {
 		using namespace std;
@@ -21,18 +24,45 @@ public:ed3rf
 		file.clear();
 		file.seekg(0);
 
-		board = new char[mapWidth * mapHeight];
+		board = new Room*[mapWidth * mapHeight];
 		int pos = 0;
 		while (getline(file, line)) {
 			for (char c : line) {
-				board[pos] = c;
+				board[pos] = RoomFactory::create(c);
 				if (c == '@') {
-					currentPlayerPosition = pos;
-					board[pos] = '.';
+					currentPlayerRoom = board[pos];
 				}
 				++pos;
 			}
 		}
+
+		for (int row = 0; row < mapHeight; ++row) {
+			for (int col = 0; col < mapWidth; ++col) {
+				int pos = row * mapWidth + col;
+				Room* n = &RoomFactory::SENTINEL;
+				Room* s = &RoomFactory::SENTINEL;
+				Room* w = &RoomFactory::SENTINEL;
+				Room* e = &RoomFactory::SENTINEL;
+
+				if (col > 0) {
+					w = board[pos - 1];
+				}
+				if (col < mapWidth-1) {
+					e = board[pos + 1];
+				}
+
+				if (row > 0) {
+					n = board[pos - mapWidth];
+				}
+				if (row < mapHeight - 1) {
+					s = board[pos + mapWidth];
+				}
+
+				board[pos]->initializeRooms(n, s, e, w);
+			}
+			
+		}
+
 
 
 	}
@@ -40,39 +70,21 @@ public:ed3rf
 	void move() {
 		char m;
 		std::cin >> m;
-		int oldPos = currentPlayerPosition;
+		currentPlayerRoom = currentPlayerRoom->attemptMove(getMove(m));
+	}
+
+	Room::Direction getMove(char m) {
 		switch (m) {
-		case 'w':
-			currentPlayerPosition -= mapWidth;
-			break;
-
 		case 'a':
-			--currentPlayerPosition;
-			break;
-
+			return Room::WEST;
+		case 'w':
+			return Room::NORTH;
 		case 's':
-			currentPlayerPosition += mapWidth;
-			break;
-
+			return Room::SOUTH;
 		case 'd':
-			++currentPlayerPosition;
-			break;
-
-		default:
-			message << "Incorrect move." << std::endl;
-		}+`
-
-		switch (board[currentPlayerPosition]) {
-		case '#':
-			message << "Bang, you hit a wall!" << std::endl;
-			currentPlayerPosition = oldPos;
-			break;
-		case '<':
-			message << "You escaped!" << std::endl;
-			break;
+			return Room::EAST;
 		}
-
-
+		return  Room::NORTH;
 	}
 
 	void drawMap() {
@@ -80,11 +92,11 @@ public:ed3rf
 		for (int row = 0; row < mapHeight; ++row) {
 			for (int col = 0; col < mapWidth; ++col) {
 				int pos = row * mapWidth + col;
-				if (pos == currentPlayerPosition) {
+				if (board[pos] == currentPlayerRoom) {
 					std::cout << '@';
 				}
 				else {
-					std::cout << board[pos];
+					std::cout << board[pos]->draw();
 				}
 			}
 			std::cout << std::endl;
@@ -95,9 +107,9 @@ public:ed3rf
 
 
 private:
-	char* board;
-	int currentPlayerPosition = 0;
-	int mapWidth, mapHeight=0;
+	Room** board;
+	Room *currentPlayerRoom;
+	int mapWidth=0, mapHeight=0;
 	std::stringstream message;
 
 
@@ -105,4 +117,5 @@ private:
 
 
 };
+
 
