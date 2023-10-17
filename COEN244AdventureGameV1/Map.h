@@ -6,9 +6,10 @@
 #include <sstream>
 
 #include "Room.h"
+#include "Screen.h"
 #include "RoomFactory.h"
 
-class Map
+class Map : public Screen
 {
 public:
 
@@ -67,9 +68,7 @@ public:
 
 	}
 
-	void move() {
-		char m;
-		std::cin >> m;
+	void move(char m) {
 		currentPlayerRoom = currentPlayerRoom->attemptMove(getMove(m));
 	}
 
@@ -87,24 +86,23 @@ public:
 		return  Room::NORTH;
 	}
 
-	void drawMap() {
-		system("cls");
-		for (int row = 0; row < mapHeight; ++row) {
-			for (int col = 0; col < mapWidth; ++col) {
-				int pos = row * mapWidth + col;
-				if (board[pos] == currentPlayerRoom) {
-					std::cout << '@';
-				}
-				else {
-					std::cout << board[pos]->draw();
-				}
+	virtual std::string line(int lineNumber) {
+		std::stringstream out;
+		for (int col = 0; col < mapWidth; ++col) {
+			int pos = lineNumber * mapWidth + col;
+			if (board[pos] == currentPlayerRoom) {
+				out << '@';
 			}
-			std::cout << std::endl;
+			else {
+				out << board[pos]->draw();
+			}
 		}
-		std::cout << message.str();
-		message = {};
+		return out.str();
 	}
 
+	virtual int getLineNumber() {
+		return mapHeight;
+	}
 
 private:
 	Room** board;

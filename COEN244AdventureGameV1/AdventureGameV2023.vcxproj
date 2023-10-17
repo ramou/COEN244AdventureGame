@@ -128,28 +128,34 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AdventureGameV2023.cpp" />
+    <ClCompile Include="AdventureUI.cpp" />
     <ClCompile Include="Enterable.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="NonEnterable.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomFactory.cpp" />
+    <ClCompile Include="Screen.cpp" />
     <ClCompile Include="Sentinel.cpp" />
     <ClCompile Include="Stair.cpp" />
+    <ClCompile Include="UIFactory.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="level1.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AdventureUI.h" />
     <ClInclude Include="Enterable.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="NonEnterable.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomFactory.h" />
+    <ClInclude Include="Screen.h" />
     <ClInclude Include="Sentinel.h" />
     <ClInclude Include="Stair.h" />
+    <ClInclude Include="UIFactory.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
