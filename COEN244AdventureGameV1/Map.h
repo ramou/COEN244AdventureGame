@@ -9,8 +9,7 @@
 #include "Screen.h"
 #include "RoomFactory.h"
 
-class Map : public Screen
-{
+class Map : public Screen {
 public:
 
 	Map(std::ifstream &file) {
@@ -64,12 +63,14 @@ public:
 			
 		}
 
-
-
 	}
 
-	void move(char m) {
-		currentPlayerRoom = currentPlayerRoom->attemptMove(getMove(m));
+	void move(char direction) {
+		try {
+			currentPlayerRoom = currentPlayerRoom->attemptMove(getMove(direction));
+		} catch (std::string m) {
+			message << m << std::endl;
+		}
 	}
 
 	Room::Direction getMove(char m) {
@@ -100,8 +101,12 @@ public:
 		return out.str();
 	}
 
-	virtual int getLineNumber() {
+	virtual int numberOfLines() {
 		return mapHeight;
+	}
+
+	std::stringstream& messages() {
+		return message;
 	}
 
 private:

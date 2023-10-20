@@ -3,22 +3,13 @@
 
 #include <iostream>
 #include <fstream>
-#include "Map.h"
-#include "UIFactory.h"
+
+#include "Game.h"
 
 int main() {
 
-    std::ifstream mapFile("level1.txt");
-    Map myMap(mapFile);
-    std::stringstream messages;
-
-    std::unique_ptr<AdventureUI> myUI = UIFactory::createUI(messages);
-
-    while(true) {
-        myUI->draw(myMap);
-        myMap.move(myUI->getInput());
-    }
-
+	Game g;
+	g.play();
 
 }
 

@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+
 class Room
 {
 public:
@@ -20,7 +22,7 @@ public:
 				if (west->canEnter()) return west;
 				break;
 		}
-		return this;
+		throw std::string("Bang!");
 	}
 	virtual char draw() = 0;
 

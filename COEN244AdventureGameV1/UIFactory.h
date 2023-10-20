@@ -12,7 +12,7 @@
 #ifdef _WIN32
 class ConioUI : public AdventureUI {
 public:
-    ConioUI(std::stringstream& messages) : AdventureUI(messages) {}
+    ConioUI() : AdventureUI() {}
 
     virtual char getInput() override {
         return _getch();
@@ -24,7 +24,7 @@ public:
 class 
     CoutCinUI : public AdventureUI {
 public:
-    CoutCinUI(std::stringstream& messages) : AdventureUI(messages) {}
+    CoutCinUI() : AdventureUI() {}
     virtual char getInput() override {
         char c;
         std::cin >> c;
@@ -34,11 +34,11 @@ public:
 
 class UIFactory {
 public:
-    static std::unique_ptr<AdventureUI> createUI(std::stringstream& messages) {
+    static std::unique_ptr<AdventureUI> createUI() {
 #ifdef _WIN32
-        return std::make_unique<ConioUI>(messages);
+        return std::make_unique<ConioUI>();
 #else
-        return std::make_unique<CoutCinUI>(messages);
+        return std::make_unique<CoutCinUI>();
 #endif
     }
 };

@@ -5,24 +5,24 @@
 
 class AdventureUI {
 public:
-	AdventureUI(std::stringstream& messages) : messages(messages) {}
+	AdventureUI() {}
     virtual void draw(Screen& screen) {
         system("CLS");
-        for (int i = 0; i < screen.getLineNumber(); ++i) {
+        for (int i = 0; i < screen.numberOfLines(); ++i) {
             std::cout << screen.line(i) << std::endl;
         }
 
-        std::cout << getMessages().str();
 
-        getMessages().str("");
+        std::cout << screen.messages().str();
+
+        screen.messages().str("");
 
     }
 	virtual char getInput() = 0;
-    std::stringstream& getMessages() {
-        return messages;
-    }
+
+
 private:
-	std::stringstream& messages;
+
 
 };
 
