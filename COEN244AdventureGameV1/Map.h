@@ -4,15 +4,21 @@
 #include <string>
 #include <cstdlib>
 #include <sstream>
+#include <random>
 
 #include "Room.h"
 #include "Screen.h"
 #include "RoomFactory.h"
+#include <vector>
+#include <algorithm>
 
 class Map : public Screen {
 public:
 
 	Map(std::ifstream &file) {
+
+		std::vector<Room*> rooms;
+
 		using namespace std;
 
 		string line;
@@ -29,6 +35,7 @@ public:
 		while (getline(file, line)) {
 			for (char c : line) {
 				board[pos] = RoomFactory::create(c);
+				if (board[pos]->canEnter()) rooms.push_back(board[pos]);
 				if (c == '@') {
 					currentPlayerRoom = board[pos];
 				}
@@ -62,6 +69,16 @@ public:
 			}
 			
 		}
+
+		std::random_device rd;  // Non-deterministic random number generator
+		std::mt19937 g(rd());   // Seed with rd
+		std::uniform_int_distribution<int> dist(1, 100);
+
+		std::shuffle(rooms.begin(), rooms.end(), g);
+
+		((Enterable*)rooms[0])->setGold(dist(g));
+		((Enterable*)rooms[1])->setGold(dist(g));
+		((Enterable*)rooms[2])->setGold(dist(g));
 
 	}
 
@@ -107,6 +124,10 @@ public:
 
 	std::stringstream& messages() {
 		return message;
+	}
+
+	Enterable * getCurrentRoom() {
+		return (Enterable *)currentPlayerRoom;
 	}
 
 private:
