@@ -7,8 +7,10 @@
 #include <random>
 
 #include "Room.h"
+#include "Direction.h"
 #include "Screen.h"
 #include "RoomFactory.h"
+#include "AdventureException.h"
 #include <vector>
 #include <algorithm>
 
@@ -23,7 +25,7 @@ public:
 
 		string line;
 		while (getline(file, line)) {
-			mapWidth = line.length();
+			mapWidth = (int)line.length();
 			++mapHeight;
 		}
 
@@ -34,6 +36,7 @@ public:
 		int pos = 0;
 		while (getline(file, line)) {
 			for (char c : line) {
+				if (pos > mapWidth * mapHeight) break;//Just to kill the warning...
 				board[pos] = RoomFactory::create(c);
 				if (board[pos]->canEnter()) rooms.push_back(board[pos]);
 				if (c == '@') {
@@ -90,18 +93,20 @@ public:
 		}
 	}
 
-	Room::Direction getMove(char m) {
+	Direction getMove(char m) {
 		switch (m) {
 		case 'a':
-			return Room::WEST;
+			return Direction::WEST;
 		case 'w':
-			return Room::NORTH;
+			return Direction::NORTH;
 		case 's':
-			return Room::SOUTH;
+			return Direction::SOUTH;
 		case 'd':
-			return Room::EAST;
+			return Direction::EAST;
+		default:
+			throw BadUserActionException(m);
 		}
-		return  Room::NORTH;
+
 	}
 
 	virtual std::string line(int lineNumber) {
@@ -132,7 +137,7 @@ public:
 
 private:
 	Room** board;
-	Room *currentPlayerRoom;
+	Room *currentPlayerRoom = nullptr;
 	int mapWidth=0, mapHeight=0;
 	std::stringstream message;
 

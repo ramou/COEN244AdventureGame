@@ -21,18 +21,24 @@ public:
 	void play() {
 
         while (true) {
-            myUI->draw(*currentLevel);
-            char action = myUI->getInput();
-            if (action == 'q') {
-                //We'll output the status
-                currentLevel->messages() << currentPlayer;
-            } else {
-                currentLevel->move(action);
-                if (currentLevel->getCurrentRoom()->getGold() > 0) {
-                    int g = currentLevel->getCurrentRoom()->getGold();
-                    currentPlayer += currentLevel->getCurrentRoom();
-                    currentLevel->messages() << "We just picked up " << g << " gold!" << std::endl;
+            try {
+                myUI->draw(*currentLevel);
+                char action = myUI->getInput();
+                if (action == 'q') {
+                    //We'll output the status
+                    currentLevel->messages() << currentPlayer;
                 }
+                else {
+                    currentLevel->move(action);
+                    if (currentLevel->getCurrentRoom()->getGold() > 0) {
+                        int g = currentLevel->getCurrentRoom()->getGold();
+                        currentPlayer += currentLevel->getCurrentRoom();
+                        currentLevel->messages() << "We just picked up " << g << " gold!" << std::endl;
+                    }
+                }
+            }
+            catch (const AdventureException &e) {
+                currentLevel->messages() << e.what() << std::endl;
             }
         }
 	}

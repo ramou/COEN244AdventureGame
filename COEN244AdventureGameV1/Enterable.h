@@ -17,6 +17,6 @@ public:
     }
 
 private:
-    int gold;
+    int gold = 0;
 };
 

@@ -1,28 +1,30 @@
 #pragma once
 #include <string>
+#include "Direction.h"
+#include "AdventureException.h"
 
 class Room
 {
 public:
-	enum Direction {NORTH, SOUTH, EAST, WEST};
+	
 
 	virtual bool canEnter() = 0;
-	virtual Room* attemptMove(Direction d) {
+	virtual Room* attemptMove(const Direction d) {
 		switch (d) {
-			case NORTH:
+			case Direction::NORTH:
 				if(north->canEnter()) return north;
 				break;
-			case SOUTH:
+			case Direction::SOUTH:
 				if (south->canEnter()) return south;
 				break;
-			case EAST:
+			case Direction::EAST:
 				if (east->canEnter()) return east;
 				break;
-			case WEST:
+			case Direction::WEST:
 				if (west->canEnter()) return west;
 				break;
 		}
-		throw std::string("Bang!");
+		throw WalkIntoWallException(d);
 	}
 	virtual char draw() = 0;
 

@@ -127,8 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AdventureException.cpp" />
     <ClCompile Include="AdventureGameV2023.cpp" />
     <ClCompile Include="AdventureUI.cpp" />
+    <ClCompile Include="Direction.cpp" />
     <ClCompile Include="Enterable.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -147,7 +149,9 @@
     <Text Include="level1.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AdventureException.h" />
     <ClInclude Include="AdventureUI.h" />
+    <ClInclude Include="Direction.h" />
     <ClInclude Include="Enterable.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Game.h" />
