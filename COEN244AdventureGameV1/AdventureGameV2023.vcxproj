@@ -134,6 +134,8 @@
     <ClCompile Include="Enterable.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Key.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="NonEnterable.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -147,6 +149,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="level1.txt" />
+    <Text Include="Obstacles.txt" />
+    <Text Include="Solutions.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdventureException.h" />
@@ -155,6 +159,8 @@
     <ClInclude Include="Enterable.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Key.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="NonEnterable.h" />
     <ClInclude Include="Player.h" />

@@ -66,9 +66,21 @@
     <ClCompile Include="Direction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Key.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="level1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Obstacles.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Solutions.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
@@ -119,6 +131,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Direction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Key.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

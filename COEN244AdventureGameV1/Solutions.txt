@@ -1,0 +1,2 @@
+b Item Sword
+a Key Square

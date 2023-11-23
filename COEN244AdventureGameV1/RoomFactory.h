@@ -17,7 +17,8 @@ public:
 		case '#':
 			return new Wall();
 		default: 
-			return &SENTINEL;
+			//We want this to be a floor since it find a obstacle or solution
+			return new Floor();
 		}
 
 

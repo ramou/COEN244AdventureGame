@@ -1,0 +1,7 @@
+A Door Square
+a Key Square
+a Monster Dragon Sword
+A fierce dragon blocks your way
+You slay the Fierce Dragon
+b Item Sword
+

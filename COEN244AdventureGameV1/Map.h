@@ -13,11 +13,14 @@
 #include "AdventureException.h"
 #include <vector>
 #include <algorithm>
+#include <map>
+#include "Key.h"
+#include "Map.h"
 
 class Map : public Screen {
 public:
 
-	Map(std::ifstream &file) {
+	Map(std::ifstream &file, std::map<char, Key*> keys, std::map<char, Item*> items) {
 
 		std::vector<Room*> rooms;
 
@@ -38,7 +41,24 @@ public:
 			for (char c : line) {
 				if (pos > mapWidth * mapHeight) break;//Just to kill the warning...
 				board[pos] = RoomFactory::create(c);
-				if (board[pos]->canEnter()) rooms.push_back(board[pos]);
+				if (board[pos]->canEnter()) {
+					rooms.push_back(board[pos]);
+					if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+						//It's something special!!!
+
+						auto key = keys.find(c);
+						if (key != keys.end()) {
+							((Floor*)board[pos])->addKey(key->second);
+						}
+
+						auto item = items.find(c);
+						if (item != items.end()) {
+							((Floor*)board[pos])->addItem(item->second);
+						}
+
+					}
+				}
+
 				if (c == '@') {
 					currentPlayerRoom = board[pos];
 				}
@@ -140,11 +160,6 @@ private:
 	Room *currentPlayerRoom = nullptr;
 	int mapWidth=0, mapHeight=0;
 	std::stringstream message;
-
-
-
-
-
 };
 
 
