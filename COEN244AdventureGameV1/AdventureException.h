@@ -14,6 +14,20 @@ class InvalidMoveException : public AdventureException {
 
 };
 
+template <class R, class T>
+class ObstacleException : public AdventureException {
+public:
+	ObstacleException(R* r, T* obs) : room(r), obstacle(obs) {}
+	
+	virtual std::string what() const override {
+		return "You ran into an obstacle!";
+	}
+
+	R* room;
+	T* obstacle;
+
+};
+
 class WalkIntoWallException : public InvalidMoveException {
 public:
 	WalkIntoWallException(Direction d) : d(d) {}

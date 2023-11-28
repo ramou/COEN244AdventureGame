@@ -4,6 +4,7 @@
 #include "UIFactory.h"
 #include "Player.h"
 #include "Key.h"
+#include "Door.h"
 #include "Item.h"
 #include <string>
 #include <sstream>
@@ -36,8 +37,30 @@ public:
             }
         }
 
+        std::ifstream obstacleFile("Obstacles.txt");
+        while (std::getline(obstacleFile, line)) {
+            std::stringstream lineData(line);
+            char c;
+            std::string obType;
+            std::string name;
+            lineData >> c >> obType >> name;
+
+            if (obType.find("Door") == 0) {
+                Key* k = nullptr;
+                for (Key* aKey : allKeys) {
+                    if (aKey->name.find(name) == 0) k = aKey;
+                }
+                if (k == nullptr) throw std::string("Couldn't find a matching key!");
+                Door* d = new Door(k);
+                doors.insert(std::make_pair(c, d));
+            }
+            else {
+                //Eventually do Monsters
+            }
+        }
+
         std::ifstream mapFile("level1.txt");
-        currentLevel = new Map(mapFile, keys, items);
+        currentLevel = new Map(mapFile, currentPlayer, keys, items, doors);
 
     }
     
@@ -94,12 +117,13 @@ private:
     std::vector<Item*> allItems;
     std::map<char, Key*> keys;
     std::map<char, Item*> items;
+    std::map<char, Door*> doors;
     /*
     * // Key -> Value 
     * 
-
-    std::map<char, Door*> doors;
+    
     std::map<char, Monster*> monsters;
+    
     */
 
 

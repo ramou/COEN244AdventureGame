@@ -131,6 +131,7 @@
     <ClCompile Include="AdventureGameV2023.cpp" />
     <ClCompile Include="AdventureUI.cpp" />
     <ClCompile Include="Direction.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="Enterable.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="NonEnterable.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomFactory.cpp" />
@@ -156,6 +158,7 @@
     <ClInclude Include="AdventureException.h" />
     <ClInclude Include="AdventureUI.h" />
     <ClInclude Include="Direction.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="Enterable.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Game.h" />
@@ -163,6 +166,7 @@
     <ClInclude Include="Key.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="NonEnterable.h" />
+    <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomFactory.h" />

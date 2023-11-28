@@ -16,11 +16,13 @@
 #include <map>
 #include "Key.h"
 #include "Map.h"
+#include "Door.h"
+#include "Player.h"
 
 class Map : public Screen {
 public:
 
-	Map(std::ifstream &file, std::map<char, Key*> keys, std::map<char, Item*> items) {
+	Map(std::ifstream &file, Player &p, std::map<char, Key*> keys, std::map<char, Item*> items, std::map<char, Door*> doors) : currentPlayer(p) {
 
 		std::vector<Room*> rooms;
 
@@ -54,6 +56,11 @@ public:
 						auto item = items.find(c);
 						if (item != items.end()) {
 							((Floor*)board[pos])->addItem(item->second);
+						}
+
+						auto door = doors.find(c);
+						if (door != doors.end()) {
+							((Floor*)board[pos])->addDoor(door->second);
 						}
 
 					}
@@ -108,8 +115,21 @@ public:
 	void move(char direction) {
 		try {
 			currentPlayerRoom = currentPlayerRoom->attemptMove(getMove(direction));
-		} catch (std::string m) {
+		}
+		catch (std::string m) {
 			message << m << std::endl;
+		} catch (ObstacleException<Enterable, Door> &d) {
+			if (d.obstacle->attemptResolution(currentPlayer.keys)) {
+				auto &keys = currentPlayer.keys;
+				auto sol = d.obstacle->getSolution();
+				auto it = std::remove(keys.begin(), keys.end(), sol);
+				keys.erase(it, keys.end());
+				d.room->door = nullptr;
+				message << d.obstacle->successfulResolution();
+				currentPlayerRoom = d.room;
+			} else {
+				message << d.obstacle->failedResolution();
+			}
 		}
 	}
 
@@ -156,6 +176,7 @@ public:
 	}
 
 private:
+	Player& currentPlayer;
 	Room** board;
 	Room *currentPlayerRoom = nullptr;
 	int mapWidth=0, mapHeight=0;
