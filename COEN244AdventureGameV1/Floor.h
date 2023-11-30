@@ -9,6 +9,7 @@ class Floor :
 public:
     virtual char draw() {
         if(getGold() > 0) return '$';
+        if (monster != nullptr) return 'M';
         if (door != nullptr) return '+';
         if (item != nullptr || key != nullptr) return '?';
 

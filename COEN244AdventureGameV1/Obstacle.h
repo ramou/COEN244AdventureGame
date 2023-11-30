@@ -7,8 +7,15 @@ template <class T>
 class Obstacle{
 public:
 	Obstacle(T *sol) : solution(sol) {};
-	
-	virtual bool attemptResolution(std::vector<T*> sols) = 0;
+
+	virtual bool attemptResolution(std::vector<T*> sols) {
+		for (T* k : sols) {
+			if (matches(k))return true;
+		}
+		return false;
+	}
+
+
 	virtual std::string successfulResolution() = 0;
 	virtual std::string failedResolution() = 0;
 

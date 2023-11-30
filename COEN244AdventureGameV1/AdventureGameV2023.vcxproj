@@ -138,6 +138,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="NonEnterable.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="NonEnterable.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Player.h" />

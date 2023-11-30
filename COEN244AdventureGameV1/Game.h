@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Key.h"
 #include "Door.h"
+#include "Monster.h"
 #include "Item.h"
 #include <string>
 #include <sstream>
@@ -45,6 +46,8 @@ public:
             std::string name;
             lineData >> c >> obType >> name;
 
+            std::cout << c << " " << obType << " " << name << std::endl;
+
             if (obType.find("Door") == 0) {
                 Key* k = nullptr;
                 for (Key* aKey : allKeys) {
@@ -53,17 +56,39 @@ public:
                 if (k == nullptr) throw std::string("Couldn't find a matching key!");
                 Door* d = new Door(k);
                 doors.insert(std::make_pair(c, d));
-            }
-            else {
-                //Eventually do Monsters
+            } else {
+                std::string sol;
+                std::string success, failure;
+                lineData >> sol;
+                std::getline(obstacleFile, failure);
+                std::getline(obstacleFile, success);
+
+                Item* i = nullptr;
+                for (Item* aItem : allItems) {
+                    if (aItem->name.find(sol) == 0) i = aItem;
+                }
+                if (i == nullptr) throw std::string("Couldn't find a matching key!");
+                Monster* m = new Monster(i, name, success, failure);
+                monsters.insert(std::make_pair(c, m));
+
             }
         }
 
         std::ifstream mapFile("level1.txt");
-        currentLevel = new Map(mapFile, currentPlayer, keys, items, doors);
+        currentLevel = new Map(mapFile, currentPlayer, keys, items, doors, monsters);
 
     }
-    
+
+    //How is there no trim function already defined? Barbarism!
+    //https://stackoverflow.com/questions/216823/how-to-trim-a-stdstring
+    inline std::string trim(const std::string& s)
+    {
+        auto wsfront = std::find_if_not(s.begin(), s.end(), [](int c) {return std::isspace(c); });
+        auto wsback = std::find_if_not(s.rbegin(), s.rend(), [](int c) {return std::isspace(c); }).base();
+        return (wsback <= wsfront ? std::string() : std::string(wsfront, wsback));
+    }
+
+
     ~Game() {
         delete currentLevel;
     }
@@ -118,13 +143,10 @@ private:
     std::map<char, Key*> keys;
     std::map<char, Item*> items;
     std::map<char, Door*> doors;
-    /*
-    * // Key -> Value 
-    * 
-    
     std::map<char, Monster*> monsters;
+
+
     
-    */
 
 
 };

@@ -10,20 +10,13 @@ class Door: public Obstacle<Key>
 public:
 	Door(Key *k) : Obstacle(k) {};
 
-	virtual bool attemptResolution(std::vector<Key*> sols) override {
-		for (Key* k : sols) {
-			if (matches(k))return true;
-		}
-		return false;
-	}
-
-	virtual std::string successfulResolution() {
+	std::string successfulResolution() override  {
 		std::stringstream bruce;
 		bruce << "You were able to unlock the door with your " << getSolution()->name << " key!" << std::endl;
 		return bruce.str();
 	}
 
-	virtual std::string failedResolution() {
+	std::string failedResolution() override {
 		std::stringstream bruce;
 		bruce << "None of your keys were able to unlock this " << getSolution()->name << " lock  :(" << std::endl;
 		return bruce.str();

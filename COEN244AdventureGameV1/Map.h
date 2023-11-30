@@ -17,12 +17,13 @@
 #include "Key.h"
 #include "Map.h"
 #include "Door.h"
+#include "Monster.h"
 #include "Player.h"
 
 class Map : public Screen {
 public:
 
-	Map(std::ifstream &file, Player &p, std::map<char, Key*> keys, std::map<char, Item*> items, std::map<char, Door*> doors) : currentPlayer(p) {
+	Map(std::ifstream &file, Player &p, std::map<char, Key*> keys, std::map<char, Item*> items, std::map<char, Door*> doors, std::map<char, Monster*> monsters) : currentPlayer(p) {
 
 		std::vector<Room*> rooms;
 
@@ -63,6 +64,10 @@ public:
 							((Floor*)board[pos])->addDoor(door->second);
 						}
 
+						auto monster = monsters.find(c);
+						if (monster != monsters.end()) {
+							((Floor*)board[pos])->addMonster(monster->second);
+						}
 					}
 				}
 
@@ -118,17 +123,33 @@ public:
 		}
 		catch (std::string m) {
 			message << m << std::endl;
-		} catch (ObstacleException<Enterable, Door> &d) {
+		}
+		catch (ObstacleException<Enterable, Door>& d) {
 			if (d.obstacle->attemptResolution(currentPlayer.keys)) {
-				auto &keys = currentPlayer.keys;
+				auto& keys = currentPlayer.keys;
 				auto sol = d.obstacle->getSolution();
 				auto it = std::remove(keys.begin(), keys.end(), sol);
 				keys.erase(it, keys.end());
 				d.room->door = nullptr;
 				message << d.obstacle->successfulResolution();
 				currentPlayerRoom = d.room;
-			} else {
+			}
+			else {
 				message << d.obstacle->failedResolution();
+			}
+		}
+		catch (ObstacleException<Enterable, Monster>& m) {
+			if (m.obstacle->attemptResolution(currentPlayer.inventory)) {
+				auto& inventory = currentPlayer.inventory;
+				auto sol = m.obstacle->getSolution();
+				auto it = std::remove(inventory.begin(), inventory.end(), sol);
+				inventory.erase(it, inventory.end());
+				m.room->monster = nullptr;
+				message << m.obstacle->successfulResolution();
+				currentPlayerRoom = m.room;
+			}
+			else {
+				message << m.obstacle->failedResolution();
 			}
 		}
 	}
