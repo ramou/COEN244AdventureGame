@@ -2,6 +2,7 @@
 #include "Wall.h"
 #include "Floor.h"
 #include "Stair.h"
+#include "Portal.h"
 #include "Sentinel.h"
 class RoomFactory {
 public:
@@ -16,6 +17,8 @@ public:
 			return new Stair();
 		case '#':
 			return new Wall();
+		case 'P':
+			return new Portal();
 		default: 
 			//We want this to be a floor since it find a obstacle or solution
 			return new Floor();

@@ -46,6 +46,10 @@ public:
 				board[pos] = RoomFactory::create(c);
 				if (board[pos]->canEnter()) {
 					rooms.push_back(board[pos]);
+					if (c == 'P') {
+						portals.push_back((Portal*)board[pos]);
+					}
+
 					if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
 						//It's something special!!!
 
@@ -110,6 +114,9 @@ public:
 		std::uniform_int_distribution<int> dist(1, 100);
 
 		std::shuffle(rooms.begin(), rooms.end(), g);
+		std::shuffle(portals.begin(), portals.end(), g);
+
+
 
 		((Enterable*)rooms[0])->setGold(dist(g));
 		((Enterable*)rooms[1])->setGold(dist(g));
@@ -118,6 +125,7 @@ public:
 	}
 
 	void move(char direction) {
+		Room* oldRoom = currentPlayerRoom;
 		try {
 			currentPlayerRoom = currentPlayerRoom->attemptMove(getMove(direction));
 		}
@@ -152,6 +160,20 @@ public:
 				message << m.obstacle->failedResolution();
 			}
 		}
+		catch (PortalException<Portal>& p) {
+			message << p.what();
+			currentPlayerRoom = (Room*)p.portal->getTwin(portals);
+		}
+
+
+		
+		if (oldRoom->draw() == 'P' && currentPlayerRoom->draw() != 'P') {
+			for (auto p : portals) {
+				p->hasTeleported = false;
+			}
+		}
+		
+
 	}
 
 	Direction getMove(char m) {
@@ -202,6 +224,7 @@ private:
 	Room *currentPlayerRoom = nullptr;
 	int mapWidth=0, mapHeight=0;
 	std::stringstream message;
+	std::vector<Portal*> portals;
 };
 
 

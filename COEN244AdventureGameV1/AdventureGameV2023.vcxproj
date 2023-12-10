@@ -142,6 +142,7 @@
     <ClCompile Include="NonEnterable.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomFactory.cpp" />
     <ClCompile Include="Screen.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="NonEnterable.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomFactory.h" />
     <ClInclude Include="Screen.h" />
