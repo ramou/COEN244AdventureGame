@@ -57,22 +57,6 @@ private:
 	Direction d;
 };
 
-template <class P>
-class PortalException : public AdventureException {
-public:
-	PortalException(P *p) : portal(p) {}
-
-	virtual std::string what() const {
-		std::stringstream ss;
-		ss << "You have stepped through a portal, who knows where you ended up!";
-		return ss.str();
-	}
-
-	P* portal;
-private:
-	
-};
-
 class BadUserActionException : public AdventureException {
 public:
 	BadUserActionException(char c) : key(c) {}

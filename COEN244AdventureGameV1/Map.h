@@ -160,17 +160,10 @@ public:
 				message << m.obstacle->failedResolution();
 			}
 		}
-		catch (PortalException<Portal>& p) {
-			message << p.what();
-			currentPlayerRoom = (Room*)p.portal->getTwin(portals);
-		}
 
-
-		
-		if (oldRoom->draw() == 'P' && currentPlayerRoom->draw() != 'P') {
-			for (auto p : portals) {
-				p->hasTeleported = false;
-			}
+		if (currentPlayerRoom->draw() == 'P') {
+			message << "You stepped into a portal taking you to who knows where?" << std::endl;
+			currentPlayerRoom = ((Portal*)currentPlayerRoom)->getTwin(portals);
 		}
 		
 
